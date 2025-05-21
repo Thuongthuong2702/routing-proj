@@ -77,6 +77,8 @@ class LSrouter(Router):
 
     def handle_new_link(self, port, endpoint, cost):
         """Handle new link establishment."""
+        #   update local data structures and forwarding table
+        #   broadcast the new link state of this router to all neighbors
         self.neighbors[port] = (endpoint, cost) # Thêm liên kết mới vào bảng neighbors
         self.link_state_db[self.addr] = self.get_neighbor_map()
         self.seq_num += 1
@@ -87,6 +89,8 @@ class LSrouter(Router):
 
     def handle_remove_link(self, port):
         """Handle removed link."""
+        #   update local data structures and forwarding table
+        #   broadcast the new link state of this router to all neighbors
         if port in self.neighbors:
             del self.neighbors[port]
         self.link_state_db[self.addr] = self.get_neighbor_map()
